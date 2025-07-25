@@ -1,4 +1,4 @@
-from tasks_1.task1 import print_task1_start
+from tasks1.task1 import print_task1_start
 
 def print_start():
     print('--> start...')
