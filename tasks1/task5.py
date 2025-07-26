@@ -23,8 +23,8 @@ def is_palindrom(s: str) -> bool:
 
 def is_palindrom2(s: str) -> bool:
     # через строки
-    str = ''.join(s.split()).lower()
-    return str == str[::-1]
+    str1 = ''.join(s.split()).lower()
+    return str1 == str1[::-1]
 
 
 if __name__ == "__main__":
