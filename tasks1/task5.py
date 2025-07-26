@@ -11,12 +11,12 @@ def is_palindrom(s: str) -> bool:
         if char != ' ':
             arr.append(char.lower())
 
-    lenArr = len(arr)
-    maxLenght = int(lenArr / 2)
+    len_arr = len(arr)
+    max_length = int(len_arr / 2)
 
-    for char in range(maxLenght):
+    for char in range(max_length):
         a = arr[char]
-        b = arr[lenArr - (char + 1)]
+        b = arr[len_arr - (char + 1)]
         if a != b:
             return False
     return True
