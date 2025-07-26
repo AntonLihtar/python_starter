@@ -29,12 +29,12 @@ def is_palindrom2(s: str) -> bool:
 
 if __name__ == "__main__":
 
-    test_numbers = [
+    test_strings = [
         'а роза упала на лапу азора',
         'тест стис',
         'литс или стил'
     ]
-    for num in test_numbers:
+    for num in test_strings:
         print(f"{num}: {is_palindrom(num)}")
         print(f"{num}: {is_palindrom2(num)}")
 

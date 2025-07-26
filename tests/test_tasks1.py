@@ -4,6 +4,8 @@ from tasks1.task2 import is_prime
 from tasks1.task3 import is_arifm_progression
 from tasks1.task4 import get_triangle_kind
 from tasks1.task5 import is_palindrom, is_palindrom2
+from tasks1.task6 import get_words
+from tasks1.task7 import get_person_short_name
 
 def test_task1():
     assert is_odd(1) ==False
@@ -55,4 +57,23 @@ def test_task5():
     assert is_palindrom("   ") == True
     assert is_palindrom2("   ") == True
 
+
+def test_task6():
+    assert get_words("Александр Сергеевич Пушкин") == ["Александр", "Сергеевич", "Пушкин"]
+    assert get_words("Привет") == ["Привет"]
+    assert get_words("") == []
+    assert get_words("один два три четыре") == ["один", "два", "три", "четыре"]
+    assert get_words("  начало середина конец  ") == ["начало", "середина", "конец"]
+    assert get_words("слово    другое") == ["слово", "другое"]
+    assert get_words("   ") == []
+
+def test_task7():
+    assert get_person_short_name("Лермонтов Михаил Юрьевич") == "Лермонтов М. Ю."
+    assert get_person_short_name("лермонтов михаил юрьевич") == "Лермонтов М. Ю."
+    assert get_person_short_name("  Лермонтов   Михаил   Юрьевич  ") == "Лермонтов М. Ю."
+    assert get_person_short_name("Иванов Анна Петровна") == "Иванов А. П."
+    # Тест 5: Одно слово (граничный случай)
+    assert get_person_short_name("тест") == "Тест"
+    # Тест 6: Два слова (граничный случай)
+    assert get_person_short_name("дон Педро") == "Дон П."
 
