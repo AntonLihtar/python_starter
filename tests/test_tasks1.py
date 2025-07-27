@@ -6,14 +6,18 @@ from tasks1.task4 import get_triangle_kind
 from tasks1.task5 import is_palindrom, is_palindrom2
 from tasks1.task6 import get_words
 from tasks1.task7 import get_person_short_name
+from tasks1.task8 import is_list_growing
+from tasks1.task9 import get_pairs_number
+
 
 def test_task1():
-    assert is_odd(1) ==False
+    assert is_odd(1) == False
     assert is_odd(4) == True
     assert is_odd(7) == False
     assert is_odd(0) == True
     assert is_odd(-11) == False
     assert is_odd(-2) == True
+
 
 def test_task2():
     assert is_prime(20) == False
@@ -23,6 +27,7 @@ def test_task2():
     assert is_prime(0) == False
     assert is_prime(1) == False
     assert is_prime(42) == False
+
 
 def test_task3():
     assert is_arifm_progression(1, 2, 3) == True
@@ -40,6 +45,7 @@ def test_task4():
     assert get_triangle_kind(100, 40, 40) == "равнобедренный"
     assert get_triangle_kind(-20, 180, 20) == "некорректные значения"
     assert get_triangle_kind(30, 70, 80) == "обычный"
+
 
 def test_task5():
     assert is_palindrom("казак") == True
@@ -67,6 +73,7 @@ def test_task6():
     assert get_words("слово    другое") == ["слово", "другое"]
     assert get_words("   ") == []
 
+
 def test_task7():
     assert get_person_short_name("Лермонтов Михаил Юрьевич") == "Лермонтов М. Ю."
     assert get_person_short_name("лермонтов михаил юрьевич") == "Лермонтов М. Ю."
@@ -77,3 +84,21 @@ def test_task7():
     # Тест 6: Два слова (граничный случай)
     assert get_person_short_name("дон Педро") == "Дон П."
 
+
+def test_task8():
+    assert is_list_growing([1, 2, 3, 4, 5]) == True
+    assert is_list_growing([1, 2, 2, 4, 5]) == False
+    assert is_list_growing([5, 4, 3, 2, 1]) == False
+    assert is_list_growing([]) == True
+    assert is_list_growing([42]) == True
+    assert is_list_growing([1, 2]) == True
+    assert is_list_growing([2, 1]) == False
+
+
+def test_task9():
+    assert get_pairs_number([1, 2, 3, 4], 3) == [(1, 2)]
+    assert get_pairs_number([1, 1, 1, 1], 5) == []
+    assert get_pairs_number([], 5) == []
+    assert get_pairs_number([5], 10) == []
+    assert get_pairs_number([2, 3], 5) == [(2, 3)]
+    assert get_pairs_number([2, 6, 4, 6, 1, 9], 10) == [(6, 4), (4, 6), (1, 9)]
