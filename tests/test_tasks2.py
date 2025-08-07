@@ -2,7 +2,7 @@ import pytest
 from tasks2.task1 import get_views_count
 from tasks2.task2 import move_zeros, move_zeros2, move_zeros_v2
 from tasks2.task3 import clean_name, is_rus_char
-from tasks1.task4 import get_triangle_kind
+from tasks2.task4 import get_pct_growth
 
 
 
@@ -152,5 +152,46 @@ def test_is_rus_char():
         assert is_rus_char(char) == False
 
 
+def test_get_pct_growth():
+    # Базовый тест
+    result = get_pct_growth([100, 150, 75, 120])
+    assert result == [None, 50, -50, 60]
+    # Один элемент
+    assert get_pct_growth([100]) == [None]
+    # Пустой список
+    assert get_pct_growth([]) == []
+    # Два элемента - рост
+    assert get_pct_growth([100, 120]) == [None, 20]
+    # Два элемента - падение
+    assert get_pct_growth([100, 80]) == [None, -20]
+    # Нулевые значения
+    assert get_pct_growth([0, 100]) == [None, None]  # Деление на 0 -> None в результате
+    # Отрицательные значения
+    assert get_pct_growth([-100, -50]) == [None, -50]  # -50 / -100 * 100 - 100 = -50
+    # Дробные значения
+    result = get_pct_growth([10, 15, 7.5])
+    expected = [None, 50, -50]
+    assert result == expected
 
+
+def test_get_pct_growth2():
+    # Базовый тест
+    result = get_pct_growth([100, 150, 75, 120])
+    expected = [None, 50, -50, 60]
+    assert result == expected
+
+    # Один элемент
+    assert get_pct_growth([100]) == [None]
+    # Пустой список
+    assert get_pct_growth([]) == []
+    # Два элемента - рост
+    assert get_pct_growth([100, 120]) == [None, 20]
+    # Два элемента - падение
+    assert get_pct_growth([100, 80]) == [None, -20]
+    # Отрицательные значения
+    assert get_pct_growth([-100, -50]) == [None, -50]
+    # Дробные значения
+    result = get_pct_growth([10, 15, 7.5])
+    expected = [None, 50, -50]
+    assert result == expected
 

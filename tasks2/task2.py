@@ -19,8 +19,7 @@ def move_zeros2(lst: list[float]):
     new_arr = [x for x in lst if x != 0]
     zeros_arr = [0]  * lst.count(0)
     lst.clear()
-    for el in new_arr + zeros_arr:
-        lst.append(el)
+    lst.extend(new_arr + zeros_arr)
 
 def move_zeros_v2(lst: list[float]) -> list:
     new_arr = []
