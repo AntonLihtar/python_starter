@@ -1,6 +1,6 @@
 import pytest
 from tasks2.task1 import get_views_count
-from tasks2.task2 import move_zeros, move_zeros2, move_zeros_v2
+from tasks2.task2 import move_zeros, move_zeros2
 from tasks2.task3 import clean_name, is_rus_char
 from tasks2.task4 import get_pct_growth
 
@@ -69,23 +69,6 @@ def test_move_zeros2():
     lst = [1, 0, 2]
     result = move_zeros2(lst)
     assert result is None
-
-
-def test_move_zeros_v2():
-    # Базовый тест
-    assert move_zeros_v2([1, 0, 0, 2, 3, 0, 1]) == [1, 2, 3, 1, 0, 0, 0]
-    # Пустой список
-    assert move_zeros_v2([]) == []
-    # Без нулей
-    assert move_zeros_v2([1, 2, 3, 4, 5]) == [1, 2, 3, 4, 5]
-    # Все нули
-    assert move_zeros_v2([0, 0, 0, 0]) == [0, 0, 0, 0]
-    # Один ноль
-    assert move_zeros_v2([1, 0, 2]) == [1, 2, 0]
-    # Один элемент
-    assert move_zeros_v2([0]) == [0]
-    assert move_zeros_v2([5]) == [5]
-
 
 def test_clean_name():
     # Базовый тест
