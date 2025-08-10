@@ -7,12 +7,8 @@
 def is_list_growing(lst: list[float]) -> bool:
     if len(lst) < 2:
         return True
-    a = lst[0]
-    for number in lst[1:]:
-        if not a < number:
-            return False
-        a = number
-    return True
+    res = [lst[x] < lst[x + 1] for x in range(len(lst) - 1)]  # 2v
+    return all(res)
 
 
 if __name__ == "__main__":

@@ -7,12 +7,11 @@
 def get_triangle_kind(a: int, b: int, c: int) -> str:
     if a <= 0 or b <= 0 or c <= 0 or a + b + c != 180:
         return "некорректные значения"
-    elif a == b and b == c:
+    if a == b and b == c:
         return "равносторонний"
-    elif a == b or a == c or b == c:
+    if a == b or a == c or b == c:
         return "равнобедренный"
-    else:
-        return "обычный"
+    return "обычный"
 
 
 if __name__ == "__main__":
