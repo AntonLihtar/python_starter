@@ -1,4 +1,6 @@
 from task1 import two_lists_to_dict
+from task2 import concat_dicts
+from task3 import sort_dict_values
 # from dictionary_tasks import fill_missed_years, get_sorted_category_sum, \
 #     get_distinct_categories, \
 #     concat_dicts, sort_dict_values, to_yearly_sales

@@ -2,7 +2,6 @@
     Соединить два списка в словарь
 """
 
-
 def two_lists_to_dict(lst1: list, lst2: list) -> dict:
     return dict(zip(lst1, lst2))
 
