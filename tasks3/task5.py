@@ -16,21 +16,23 @@ def fill_missed_years(ob):
     # найти промежутки меж годами и разницу между ними
     # прибавить промежуткам года
     new_ob = ob.copy()
-    keys_arr = list(yearly_sales.keys())  # преобразуем в список дат
-    for index in range(len(keys_arr) - 1):  # индексы значений
-        prev_date = int(keys_arr[index]) + 1
-        next_date = int(keys_arr[index + 1])
+    keys_arr = sorted(map(int, new_ob.keys()))
+    print(keys_arr)
+    for prev_date, next_date in zip(keys_arr, keys_arr[1:]):
 
-        len_dates = next_date - prev_date  # получаем количество отсутствующих дат
-        if len_dates == 0:
-            continue
-        step = (new_ob[keys_arr[index + 1]] - new_ob[keys_arr[index]]) / (len_dates + 1)  # высчитываем шаг
-        counter = 1
-        for key in range(prev_date, next_date):  # проходим по ренжу между дат
-            new_ob[str(key)] = int(new_ob[keys_arr[index]] + step * counter)
-            counter += 1 # для последующих увеличиваем шаг на себя же
+        len_dates = next_date - (prev_date + 1)  # получаем количество отсутствующих дат
+
+        if len_dates != 0: # если промежуточных дат нет пропускаем
+
+            step = (new_ob[str(next_date)] - new_ob[str(prev_date)]) / (len_dates + 1)  # высчитываем шаг
+            counter = 1
+            for key in range(prev_date + 1, next_date):  # проходим по ренжу между дат
+
+                new_ob[str(key)] = round((new_ob[str(prev_date)]) + step * counter)
+                counter += 1  # для последующих увеличиваем шаг на себя же
 
     return dict(sorted(new_ob.items()))
+
 
 if __name__ == "__main__":
     res = fill_missed_years(yearly_sales)
