@@ -1,6 +1,8 @@
-from task1 import two_lists_to_dict
-from task2 import concat_dicts
-from task3 import sort_dict_values
+from .task1 import two_lists_to_dict
+from .task2 import concat_dicts
+from .task3 import sort_dict_values
+from .task4 import to_yearly_sales
+from .task5 import fill_missed_years
 # from dictionary_tasks import fill_missed_years, get_sorted_category_sum, \
 #     get_distinct_categories, \
 #     concat_dicts, sort_dict_values, to_yearly_sales
@@ -44,6 +46,7 @@ def test_merge_two_dicts():
         "Russia": 5
     }
 
+def test_sum_value_of_the_same_key_kinds():
 
 def test_sort_dict_values():
     """
@@ -67,7 +70,6 @@ def test_sort_dict_values():
     }
 
 
-def test_sum_value_of_the_same_key_kinds():
     """
         Просуммировать словарь по годам
     """

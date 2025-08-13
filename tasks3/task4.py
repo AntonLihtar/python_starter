@@ -1,37 +1,31 @@
 """
-    Дан массив цен акций, вывести список, содержащий темпы прироста от периода к периоду.
-    Для первого элемента списка выведите значение None. Округлите до целых.
-    Например: [100, 150, 300, 400] -> [None, 50%, 100%, 33%]
+    Просуммировать словарь по годам
 """
+monthly_sales = {
+    "Jan_2020": 100,
+    "Feb_2020": 90,
+    "Mar_2020": 15,
+    "Jan_2021": 10,
+    "Feb_2021": 50,
+    "Mar_2022": 5,
+    "Sep_2023": 12,
+    "Oct_2023": 12
+}
 
-#  вот так лучше!
-#  а где обработка ошибок?
-# list comprehension,
-# zip, slice
-# def f(x,lst):
-#   pass
-
-# [f(x) for x in lst]
-s = [10, 20, 0, 30, 40]  # если 0 вернуть None
-s1 = [10, None, 30, None]  # если None вернуть None
-
-
-def get_pct_growth(s: list[float]) -> list[float | None]:
-    if len(s) == 0:
-        return []
-
-    def get_r(prev: float | None, curr: float | None) -> float | None:
-        if prev in (0, None) or curr in (0, None):
-            return None
-        x = curr / prev * 100 - 100
-        return round(x)
-
-    arr = [get_r(*el) for el in zip(s, s[1:])]
-    return [None] + arr
+def to_yearly_sales(d: dict):
+    ob = {}
+    for k, v in d.items():
+        key = k.split('_')[1]
+        ob.setdefault(key, 0)
+        ob[key] += v
+    return ob
 
 
 if __name__ == "__main__":
-    print(get_pct_growth([100, 150, 300, 400]))
-    print(get_pct_growth(s))
-    print(get_pct_growth(s1))
-    print(get_pct_growth([100, None, 200, 50, 150, 0, 200]))
+    print(to_yearly_sales(monthly_sales))
+    #  {
+    #     "2020": 205,
+    #     "2021": 60,
+    #     "2022": 5,
+    #     "2023": 24
+    # }

@@ -2,10 +2,10 @@ import pytest
 from tasks3.task1 import two_lists_to_dict
 from tasks3.task2 import concat_dicts
 from tasks3.task3 import sort_dict_values
-from tasks2.task4 import get_pct_growth
+from tasks3.task4 import to_yearly_sales
 
 
-def test_task1():
+def test_two_lists_to_dict():
     keys = ["USA", "Russia", "France"]
     values = [100, 10, 25]
     assert two_lists_to_dict(keys, values) == {"USA": 100, "Russia": 10, "France": 25}
@@ -35,7 +35,6 @@ def test_task1():
     keys = ["a", "b", "a"]
     values = [1, 2, 3]
     assert two_lists_to_dict(keys, values) == {"a": 3, "b": 2}
-
 
 def test_move_zeros():  # Тест 1: обычные словари
     d1 = {'a': 1, 'b': 2}
@@ -130,4 +129,91 @@ def test_sort_dict_values():
     result = sort_dict_values(original)
     assert original == original_copy  # исходный не изменился
     assert result == {"z": 15, "x": 10, "y": 5}
+
+def test_to_yearly_sales():
+    # Тест 1: обычные данные
+    monthly_sales = {
+        "Jan_2020": 100,
+        "Feb_2020": 90,
+        "Mar_2020": 15,
+        "Jan_2021": 10,
+        "Feb_2021": 50,
+        "Mar_2022": 5,
+        "Sep_2023": 12,
+        "Oct_2023": 12
+    }
+    expected = {
+        "2020": 205,  # 100 + 90 + 15
+        "2021": 60,   # 10 + 50
+        "2022": 5,    # 5
+        "2023": 24    # 12 + 12
+    }
+    assert to_yearly_sales(monthly_sales) == expected
+
+    # Тест 2: пустой словарь
+    assert to_yearly_sales({}) == {}
+
+    # Тест 3: один месяц
+    assert to_yearly_sales({"Jan_2020": 100}) == {"2020": 100}
+
+    # Тест 4: несколько месяцев одного года
+    sales = {
+        "Jan_2020": 10,
+        "Feb_2020": 20,
+        "Mar_2020": 30,
+        "Apr_2020": 40
+    }
+    assert to_yearly_sales(sales) == {"2020": 100}
+
+    # Тест 5: одинаковые месяцы разных лет
+    sales = {
+        "Jan_2020": 100,
+        "Jan_2021": 200,
+        "Jan_2022": 300
+    }
+    expected = {"2020": 100, "2021": 200, "2022": 300}
+    assert to_yearly_sales(sales) == expected
+
+    # Тест 6: нулевые значения
+    sales = {
+        "Jan_2020": 0,
+        "Feb_2020": 50,
+        "Mar_2020": 0
+    }
+    assert to_yearly_sales(sales) == {"2020": 50}
+
+    # Тест 7: отрицательные значения
+    sales = {
+        "Jan_2020": 100,
+        "Feb_2020": -20,
+        "Mar_2020": 30
+    }
+    assert to_yearly_sales(sales) == {"2020": 110}
+
+    # Тест 8: возвращаемый тип — обычный dict
+    result = to_yearly_sales({"Jan_2020": 100})
+    assert isinstance(result, dict)
+    assert not hasattr(result, 'default_factory')  # не defaultdict
+
+    # Тест 9: много лет
+    sales = {
+        "Jan_2020": 10,
+        "Jan_2021": 20,
+        "Jan_2022": 30,
+        "Jan_2023": 40,
+        "Jan_2024": 50
+    }
+    expected = {"2020": 10, "2021": 20, "2022": 30, "2023": 40, "2024": 50}
+    assert to_yearly_sales(sales) == expected
+
+    # Тест 10: большие числа
+    sales = {
+        "Jan_2020": 1000000,
+        "Feb_2020": 500000,
+        "Jan_2021": 2000000
+    }
+    assert to_yearly_sales(sales) == {"2020": 1500000, "2021": 2000000}
+
+
+
 
