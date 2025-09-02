@@ -1,18 +1,19 @@
-"""
-    Отсортировать словарь по убыванию
-"""
-d = {
-    "USA": 100,
-    "Japan": 90,
-    "France": 25,
-    "China": 80,
-    "India": 50,
-    "Russia": 5
-}
+from collections import Counter
 
-def sort_dict_values(dct: dict) -> dict:
-    ls = dict(sorted(dct.items(), key=lambda x: x[1], reverse=True))
-    return ls
+def get_most_frequent_symbol(s: str) -> tuple[str, int]:
+    """
+        Вернуть символ (и число символов), который встречается в строке чаще всего независимо
+        от порядка. Например:
+        get_most_frequent_symbol("aaeeaeabenbdedeeeddaaadffeffseee") == (e, 12)
+        Темы: парсинг строк, словарь
+    """
+    if not s:
+        return '', 0
+
+    counters = Counter(s)
+    return counters.most_common(1)[0]
+
+
 
 if __name__ == "__main__":
-    print(sort_dict_values(d))
+    print(get_most_frequent_symbol('aaeeaeabenbdedeeeddaaadffeffseee'))

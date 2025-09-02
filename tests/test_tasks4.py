@@ -1,7 +1,7 @@
 import pytest
 from tasks4.task1 import get_top_grade_students
 from tasks4.task2 import contains_in_list
-from tasks3.task3 import sort_dict_values
+from tasks4.task3 import get_most_frequent_symbol
 from tasks3.task4 import to_yearly_sales
 from tasks3.task5 import fill_missed_years
 from tasks3.task6 import get_distinct_categories
@@ -116,61 +116,37 @@ def test_contains_in_list():
     # Тест 20: большой список, подсписок в середине
     assert contains_in_list([4, 6, 8], [1, 2, 3, 4, 5, 6, 7, 8, 9]) == True
 
-def test_sort_dict_values():
-    # Тест 1: обычный словарь
-    d = {
-        "USA": 100,
-        "Japan": 90,
-        "France": 25,
-        "China": 80,
-        "India": 50,
-        "Russia": 5
-    }
-    expected = {
-        "USA": 100,
-        "Japan": 90,
-        "China": 80,
-        "India": 50,
-        "France": 25,
-        "Russia": 5
-    }
-    assert sort_dict_values(d) == expected
+def test_run_get_most_frequent_symbol():
+  # Тест 1: Пример из условия
+    assert get_most_frequent_symbol("aaeeaeabenbdedeeeddaaadffeffseee") == ('e', 12), \
+        "Тест 1 не пройден: ожидается ('e', 12)"
 
-    # Тест 2: пустой словарь
-    assert sort_dict_values({}) == {}
+    # Тест 2: Пустая строка
+    assert get_most_frequent_symbol("") == ('', 0), \
+        "Тест 2 не пройден: пустая строка должна давать ('', 0)"
 
-    # Тест 3: один элемент
-    assert sort_dict_values({"A": 42}) == {"A": 42}
+    # Тест 3: Один символ
+    assert get_most_frequent_symbol("a") == ('a', 1), \
+        "Тест 3 не пройден: один символ"
 
-    # Тест 4: уже отсортированный словарь
-    d = {"A": 100, "B": 50, "C": 10}
-    assert sort_dict_values(d) == {"A": 100, "B": 50, "C": 10}
-    # Тест 5: отрицательные значения
-    d = {"A": -10, "B": 5, "C": -20}
-    assert sort_dict_values(d) == {"B": 5, "A": -10, "C": -20}
+    # Тест 4: Все символы одинаковые
+    assert get_most_frequent_symbol("aaaaaa") == ('a', 6), \
+        "Тест 4 не пройден: все символы одинаковые"
 
-    # Тест 6: одинаковые значения
-    d = {"A": 50, "B": 50, "C": 30}
-    assert sort_dict_values(d) == {"A": 50, "B": 50, "C": 30}
+    # Тест 5: Равное количество (выбирается первый по порядку в Counter)
+    assert get_most_frequent_symbol("aabbcc") == ('a', 2), \
+        "Тест 5 не пройден: при равенстве — выбирается первый встретившийся"
 
-    # Тест 7: строки как значения
-    d = {"A": "zebra", "B": "apple", "C": "banana"}
-    assert sort_dict_values(d) == {"A": "zebra", "C": "banana", "B": "apple"}
+    # Тест 6: Разные символы, один явно чаще
+    assert get_most_frequent_symbol("abccc") == ('c', 3), \
+        "Тест 6 не пройден: 'c' встречается чаще"
 
-    # Тест 8: float значения
-    d = {"A": 3.14, "B": 2.71, "C": 1.41}
-    assert sort_dict_values(d) == {"A": 3.14, "B": 2.71, "C": 1.41}
+    # Тест 7: Пробелы и символы
+    assert get_most_frequent_symbol("hello world") == ('l', 3), \
+        "Тест 7 не пройден: 'l' встречается 3 раза"
 
-    # Тест 9: большие числа
-    d = {"A": 1000000, "B": 1, "C": 999999}
-    assert sort_dict_values(d) == {"A": 1000000, "C": 999999, "B": 1}
 
-    # Тест 10: проверка, что исходный словарь не изменился
-    original = {"x": 10, "y": 5, "z": 15}
-    original_copy = original.copy()
-    result = sort_dict_values(original)
-    assert original == original_copy  # исходный не изменился
-    assert result == {"z": 15, "x": 10, "y": 5}
+
 
 def test_to_yearly_sales():
     # Тест 1: обычные данные
