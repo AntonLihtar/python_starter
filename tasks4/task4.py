@@ -1,31 +1,43 @@
-"""
-    Просуммировать словарь по годам
-"""
-monthly_sales = {
-    "Jan_2020": 100,
-    "Feb_2020": 90,
-    "Mar_2020": 15,
-    "Jan_2021": 10,
-    "Feb_2021": 50,
-    "Mar_2022": 5,
-    "Sep_2023": 12,
-    "Oct_2023": 12
-}
+def are_brackets_correct(s: str) -> bool:
+    """
+        Напишите функцию, которая возвращает true, если скобочная последовательность
+        является правильной, т.е. все открывающиеся скобки соответствуют закрывающимся.
+        Скобки могут быть круглыми и квадратными.
+        ((( ))) - правильно.
+        [][][] - правильно
+        [()][] - правильно
+        [(][)] - неправильно
+        Темы: парсинг строк, стек (stack)
+    """
+    if len(s) < 2:
+        return False
 
-def to_yearly_sales(d: dict):
-    ob = {}
-    for k, v in d.items():
-        key = k.split('_')[1]
-        ob.setdefault(key, 0)
-        ob[key] += v
-    return ob
+    scope = {
+        '(': ')',
+        '[': ']',
+        '{': '}'
+    }
+
+    res = []
+
+    for char in s:
+        if char == " " or char.isalpha():
+            continue
+        if char in scope:
+            res.append(scope[char])
+        else:
+            if len(res) > 0:
+                end_char = res.pop()
+                if end_char == char:
+                    continue
+                else:
+                    return False
+            else:
+                return False
+    return len(res) == 0
 
 
 if __name__ == "__main__":
-    print(to_yearly_sales(monthly_sales))
-    #  {
-    #     "2020": 205,
-    #     "2021": 60,
-    #     "2022": 5,
-    #     "2023": 24
-    # }
+    print(are_brackets_correct('([](( ) )[{}])'))
+    print(are_brackets_correct('a(b)c'))
+

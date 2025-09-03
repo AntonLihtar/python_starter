@@ -2,7 +2,7 @@ import pytest
 from tasks4.task1 import get_top_grade_students
 from tasks4.task2 import contains_in_list
 from tasks4.task3 import get_most_frequent_symbol
-from tasks3.task4 import to_yearly_sales
+from tasks4.task4 import are_brackets_correct
 from tasks3.task5 import fill_missed_years
 from tasks3.task6 import get_distinct_categories
 from tasks3.task7 import get_sorted_category_sum
@@ -146,7 +146,20 @@ def test_run_get_most_frequent_symbol():
         "Тест 7 не пройден: 'l' встречается 3 раза"
 
 
-
+def test_are_brackets_correct():
+    # Правильные последовательности
+    assert are_brackets_correct("()") == True
+    assert are_brackets_correct("(())") == True
+    assert are_brackets_correct("[][]") == True
+    assert are_brackets_correct("{{}}") == True
+    assert are_brackets_correct("()[]{}") == True
+    assert are_brackets_correct("([{}])") == True
+    assert are_brackets_correct("()[][]{{}}") == True
+    assert are_brackets_correct("[]}") == False
+    assert are_brackets_correct("([)]") == False
+    assert are_brackets_correct(" ") == False  # только пробелы
+    assert are_brackets_correct("a(b)c") == True
+    assert are_brackets_correct("a(b]c") == False
 
 def test_to_yearly_sales():
     # Тест 1: обычные данные
