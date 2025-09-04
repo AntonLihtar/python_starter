@@ -4,7 +4,7 @@ from tasks4.task2 import contains_in_list
 from tasks4.task3 import get_most_frequent_symbol
 from tasks4.task4 import are_brackets_correct
 from tasks4.task5 import get_max_rep_symbol
-from tasks3.task6 import get_distinct_categories
+from tasks4.task6 import get_longest_common_prefix
 from tasks3.task7 import get_sorted_category_sum
 
 
@@ -174,3 +174,14 @@ def test_get_max_rep_symbol():
     assert get_max_rep_symbol("aaaa") == "a"  # все одинаковые
     assert get_max_rep_symbol("bbbaaa") == "b"  # первая последовательность длиннее
 
+def test_get_longest_common_prefix():
+    assert get_longest_common_prefix(["flower", "flow", "flight"]) == "fl"
+    assert get_longest_common_prefix(["dog", "racecar", "car"]) == ""
+    assert get_longest_common_prefix(["interspecies", "interstellar", "interstate"]) == "inters"
+    assert get_longest_common_prefix([""]) == ""
+    assert get_longest_common_prefix([]) == ""
+    assert get_longest_common_prefix(["single"]) == "single"
+    assert get_longest_common_prefix(["same", "same", "same"]) == "same"
+    assert get_longest_common_prefix(["abc", "ab", "abcd"]) == "ab"  # "ab" - общий префикс
+    assert get_longest_common_prefix(["prefix", "preform", "prepare"]) == "pre"
+    assert get_longest_common_prefix(["a"]) == "a"
