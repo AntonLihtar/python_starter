@@ -6,7 +6,7 @@ from tasks4.task4 import are_brackets_correct
 from tasks4.task5 import get_max_rep_symbol
 from tasks4.task6 import get_longest_common_prefix
 from tasks4.task7 import has_black_list_words
-# from tasks4.task8 import has_black_list_words
+from tasks4.task8 import reverse_words
 
 
 def test_get_top_grade_students():
@@ -242,3 +242,31 @@ def test_has_black_list_words():
     # Тест 15: похожие слова но не совпадающие
     assert has_black_list_words("собачий", ["собака"]) == False
     assert has_black_list_words("кошачий", ["кот"]) == False
+
+
+def test_reverse_words():
+    # Базовый тест
+    assert reverse_words("the sky is blue") == "blue is sky the"
+
+    # Одно слово
+    assert reverse_words("hello") == "hello"
+
+    # Два слова
+    assert reverse_words("hello world") == "world hello"
+
+    # Пустая строка
+    assert reverse_words("") == ""
+
+    # Строка с пробелами в начале и конце
+    assert reverse_words("  hello world  ") == "world hello"
+
+    # Много слов
+    assert reverse_words("a b c d e") == "e d c b a"
+
+    # Слова с разной длиной
+    assert reverse_words("I love programming") == "programming love I"
+
+    # С повторяющимися словами
+    assert reverse_words("cat dog cat") == "cat dog cat"
+
+    print("Все тесты пройдены!")
