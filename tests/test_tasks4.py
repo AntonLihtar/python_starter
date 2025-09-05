@@ -5,7 +5,8 @@ from tasks4.task3 import get_most_frequent_symbol
 from tasks4.task4 import are_brackets_correct
 from tasks4.task5 import get_max_rep_symbol
 from tasks4.task6 import get_longest_common_prefix
-from tasks3.task7 import get_sorted_category_sum
+from tasks4.task7 import has_black_list_words
+# from tasks4.task8 import has_black_list_words
 
 
 def test_get_top_grade_students():
@@ -185,3 +186,59 @@ def test_get_longest_common_prefix():
     assert get_longest_common_prefix(["abc", "ab", "abcd"]) == "ab"  # "ab" - общий префикс
     assert get_longest_common_prefix(["prefix", "preform", "prepare"]) == "pre"
     assert get_longest_common_prefix(["a"]) == "a"
+
+
+def test_has_black_list_words():
+    # Тест 1: базовый случай - слово найдено
+    assert has_black_list_words("А попа была собака, он ее любил", ["собака", "кот", "мышь"]) == True
+
+    # Тест 2: слово не найдено
+    assert has_black_list_words("У меня есть кошка", ["собака", "кот", "мышь"]) == False
+
+    # Тест 3: регистр не важен
+    assert has_black_list_words("СОБАКА бегает по двору", ["собака"]) == True
+    assert has_black_list_words("У меня есть Кот", ["кот"]) == True
+    assert has_black_list_words("МЫШЬ в доме", ["мышь"]) == True
+
+    # Тест 4: знаки препинания
+    assert has_black_list_words("Собака! Какая красивая.", ["собака"]) == True
+    assert has_black_list_words("Мой кот, он замечательный", ["кот"]) == True
+    assert has_black_list_words("Это мышь? Да, это мышь!", ["мышь"]) == True
+
+    # Тест 5: частичное совпадение (не должно срабатывать)
+    assert has_black_list_words("собачка", ["собака"]) == False
+    assert has_black_list_words("котенок", ["кот"]) == False
+    assert has_black_list_words("мышиный", ["мышь"]) == False
+
+    # Тест 6: пустая строка
+    assert has_black_list_words("", ["собака"]) == False
+
+    # Тест 7: пустой стоп-лист
+    assert has_black_list_words("любое слово", []) == False
+
+    # Тест 8: оба списка пустые
+    assert has_black_list_words("", []) == False
+
+    # Тест 9: несколько слов из стоп-листа
+    assert has_black_list_words("У меня есть собака и кот", ["собака", "кот", "мышь"]) == True
+
+    # Тест 10: слова с цифрами
+    assert has_black_list_words("У меня кот2021", ["кот"]) == True
+    assert has_black_list_words("Собака345 стоит здесь", ["собака"]) == True
+
+    # Тест 11: сложная пунктуация
+    assert has_black_list_words("Привет, кот! Как дела?", ["кот"]) == True
+    assert has_black_list_words("Смотри: это собака; она милая", ["собака"]) == True
+
+    # Тест 12: слово в середине предложения
+    assert has_black_list_words("Я вчера видел мышь в доме", ["мышь"]) == True
+
+    # Тест 13: множественные пробелы и знаки
+    assert has_black_list_words("Собака   !   @  #  $  %  ^  &  *  (  )  _  +", ["собака"]) == True
+
+    # Тест 14: слово из нескольких стоп-слов
+    assert has_black_list_words("У меня есть кот", ["собака", "кот", "мышь"]) == True
+
+    # Тест 15: похожие слова но не совпадающие
+    assert has_black_list_words("собачий", ["собака"]) == False
+    assert has_black_list_words("кошачий", ["кот"]) == False
